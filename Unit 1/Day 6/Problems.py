@@ -37,4 +37,4 @@ total_fuel = distance/fuel_efficiency
 total_fuel_cost = total_fuel*price_of_fuel
 split_cost = total_fuel_cost/num_passengers
 print(f"The total amount of fuel needed for the trip is {total_fuel} litres. The total cost of fuel for the trip is $ {total_fuel_cost}. The cost of fuel per passenger is ${split_cost}.")
-#sav
+#s
