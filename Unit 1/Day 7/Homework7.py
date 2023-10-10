@@ -33,6 +33,7 @@ total = price*quantity
 #Right aligned
 print(f"Item     Price  Quantity  Total")
 print(f"{item}{price:>7}{quantity:>10}{total:>7}")
+print("   ")
 
 # Left aligned
 city = "City"
