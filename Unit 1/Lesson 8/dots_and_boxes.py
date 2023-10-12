@@ -35,6 +35,7 @@ box_percent3 = float(y_boxes3/49*100)
 box_percent4 = float(y_boxes4/49*100)
 box_percent5 = float(y_boxes5/49*100)
 
+print("  ")
 print(f"Dots and Boxes Score Tracker")
 
 print(f"Player's Name: {y_name}")
