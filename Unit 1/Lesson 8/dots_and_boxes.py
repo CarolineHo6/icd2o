@@ -48,3 +48,11 @@ print(f"{o_name3:<24}{y_boxes3:<17}{o_boxes3:<11}{box_percent3:.2f}")
 print(f"{o_name4:<24}{y_boxes4:<17}{o_boxes4:<11}{box_percent4:.2f}")
 print(f"{o_name5:<24}{y_boxes5:<17}{o_boxes5:<11}{box_percent5:.2f}")
 print(f"=========================================================")
+print("   ")
+total_points = y_boxes1+y_boxes2+y_boxes3+y_boxes4+y_boxes5
+total_points_o = o_boxes1+o_boxes2+o_boxes3+o_boxes4+o_boxes5
+percent_points_r = (total_points/49) * 100
+print(f"Summary:")
+print(f"Total Points: {total_points}")
+print(f"Total Opponents Points: {total_points_o}")
+print(f"Percentage Points Received: {percent_points_r:.2f}%")
