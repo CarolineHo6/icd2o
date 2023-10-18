@@ -49,9 +49,9 @@ def volume_of_cube(side_length):
 # Function to check if a number is positive, negative, or zero
 def check_number_status(number):
     if isinstance(number, (int, float)):
-        if number > 0
+        if number > 0:
             return "Positive"
-        elif number > 0
+        elif number > 0:
             return "Negative"
         else:
             return "Zero"
@@ -98,7 +98,7 @@ def max_of_two(num1, num2):
         
 # Function to calculate the square root of a number
 def square_root(number):
-    if isinstance(number, (in, float)) and number >= 0:
+    if isinstance(number, (int, float)) and number >=0:
         return number **0.5
 
 # Function to find the length of a string
