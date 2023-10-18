@@ -19,7 +19,7 @@ def contains_substring(string, substring):
         return "Invalid input. Please enter a numeric value"
 string = input("Enter a word: ")
 substring = input("Enter another word that is within the first word: ")
-print(f"Substring {substring} is present in the string: {contains_substring}")
+print(f"Substring {substring} is present in the string: {contains_substring(string, substring)}")
 
 # Question 3
 def average_of_three_floats(d1, d2, d3):
@@ -30,7 +30,7 @@ def average_of_three_floats(d1, d2, d3):
 d1 = float(input("Enter a number: "))
 d2 = float(input("Enter a number: "))
 d3 = float(input("Enter a number: "))
-print(f"The average is {average_of_three_floats}")
+print(f"The average is {average_of_three_floats(d1, d2, d3)}")
 
 #Question 4
 def concatenate_strings(string1, string2):
@@ -40,14 +40,14 @@ def concatenate_strings(string1, string2):
         return "Invalid Input. Please enter a word."
 string1 = input("Enter a word: ")
 string2 = input("Enter another word: ")
-print(f"{concatenate_strings}")
+print(f"{concatenate_strings(string1, string2)}")
 
 #Question 5
 def volume_of_cube(length):
     if isinstance(length, (int, float)):
         return length**3
 length = float(input("Enter a number: "))
-print(f"The volume of the cube is {volume_of_cube:.2f}")
+print(f"The volume of the cube is {volume_of_cube(length):.2f}")
 
 # Question 6
 def check_number_status(number):
@@ -59,7 +59,7 @@ def check_number_status(number):
     else:
         return "Zero"
 number = float(input("Enter a number: "))
-print(f"Your number is {check_number_status}")
+print(f"Your number is {check_number_status(number)}")
 
 # Question 7
 def circumference_of_circle(radius):
@@ -68,7 +68,7 @@ def circumference_of_circle(radius):
     else:
         return "Invalid Input. Please enter a numeric value."
 radius = float(input("Enter a radius: "))
-print(f"The circumference of your circle is {circumference_of_circle:.2f}")
+print(f"The circumference of your circle is {circumference_of_circle(radius):.2f}")
 
 # Question 8
 def count_char_occurrences(string, char):
@@ -78,7 +78,7 @@ def count_char_occurrences(string, char):
         return "Invalid input. Please enter a word and letter"
 string = input("Enter a word: ")
 char = input("Enter a letter: ")
-print(f"The character {char} occurs {count_char_occurrences} in the string.")
+print(f"The character {char} occurs {count_char_occurrences(string, char)} in the string.")
 
 # Question 9
 def calculate_percentage(num, percent):
@@ -88,7 +88,7 @@ def calculate_percentage(num, percent):
         return "Invalid input. Please enter a numeric value."
 num = float(input("Enter a number: "))
 percent = float(input("Enter a percentage: "))
-print(f"{percent}% of the number is {calculate_percentage:.2f}")
+print(f"{percent}% of the number is {calculate_percentage(num, percent):.2f}")
     
 # Question 10
 def absolute_difference(number, number2):
@@ -98,4 +98,4 @@ def absolute_difference(number, number2):
         return "Invalid input. Please enter a numeric value."
 number = float(input("Enter a number: "))
 number2 = float(input("Enter another number: "))
-print(f"The absolute difference is {absolute_difference:.2f}")
+print(f"The absolute difference is {absolute_difference(number, number2):.2f}")
