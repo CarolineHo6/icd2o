@@ -16,21 +16,29 @@ answer = calculate_cylinder_volume(3, 8)
 print(f"{answer:.2f}")
 
 # Question 3
-def print_triangle(count, char, num):
+'''def print_triangle(count, char, num):
     if isinstance(char, str) and isinstance (count, (int, float)) and isinstance(num, (int, float)):
         while count<=num:
             print(count*char)
-            count = count+1
+            count = count+1'''
 '''
         for item in range (1,height+1):
             print(char*num)
 '''
+def print_triangle(char, size):
+    for _ in range(size):
+        print(char*size)
+        size=size-1
 
-count = 1
+c = input("Please enter a character: ")
+i = int(input("Please enter an integer number: "))
+print_triangle(c, i)
+
+'''count = 1
 char = "*"
 num = 2
 answer = print_triangle(count, char, num)
-print(answer)
+print(answer)'''
 
 #Question 4
 def say_hello(name):
@@ -49,15 +57,13 @@ area = calculate_circle_area(2)
 print(area)
 
 #Question 6
-def print_square(length):
-    if isinstance(length, (int, float)):
-        print(". "*length)
-        for _ in range(length-2):
-            print(". " + " " * (length + 1) + ".")
-        print(". "*length)
+def print_square(char, size):
+    for _ in range(size):
+        print(char*size)
 
-square_shape = print_square(5)
-print(square_shape)
+c = input("Please enter a character: ")
+i = int(input("Please enter an integer number: "))
+print_square(c, i)
         
 # Question 7
 def calculate_power(num1):
