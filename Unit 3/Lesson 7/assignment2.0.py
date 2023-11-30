@@ -93,8 +93,9 @@ def manage_health(current_health, damage_taken, initial_health):
 
 # Game completion function
 def game_completed():
-    print("Thanks for playing the Simple Python Adventure Game!")
+    return "Thanks for playing the Simple Python Adventure Game!"
 
+# Main function, excecutes everything
 def main():
     # Character choice separated
     character, initial_health = character_choice()
@@ -112,7 +113,7 @@ def main():
     superhero_mission(action, player_superhero)
 
     # Thanoose's health
-    thanoose_health(t_current_health)
+    t_current_health = thanoose_health(t_current_health)
 
     # Player's health
     manage_health(current_health, initial_health)
@@ -121,6 +122,9 @@ def main():
     action, player_superhero = superhero_mission()
     current_health, damage_taken = manage_health()
     character, initial_health = game_intro()
+
+    # Game completion
+    game_completed()
     
 # Running the game
 main()
