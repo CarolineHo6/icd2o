@@ -20,9 +20,9 @@ def character_choice():
         character_choice = input("Choose the number for the superhero of your choice (1-3): ")
 
     # Character name and health
-    if character_choice == 1:
+    if character_choice == '1':
         print("Iron Deficient Man")
-    elif character_choice == 2:
+    elif character_choice == '2':
         print("SpooderMan")
     else:
         print("Capsicule America")
@@ -46,10 +46,7 @@ def make_decision():
     print("2. Seek assistance from another hero")
     decision = input("Enter the number beside the decision you would like to make (1-2): ")
 
-    return decision
-
-# What happens after the choice
-def choice(decision):
+    # After decision
     if decision == '1':
         print("You have decided to attack Thanoose! Your bravery is awarded when you trip and fall and find 5 points on the ground!")
         return 5 #Bonus points
@@ -58,26 +55,40 @@ def choice(decision):
         return 10 #Bonus points
     else:
         print("Invalid choice. A penalty will be given")
-        return -20 #Penalty
+        return - 20 #Penalty
 
 # Function for Superhero Mission
 def superhero_mission(action, player_superhero):
     player_superhero = character_choice()
-    if make_decision() == 1:
-        print("Since you are confronting Thanoose, choose your attack")
-        print("1 - Scold")
-        print("2 - Yell")
-        print("3 - Hit with slipper")
-        action = input("Enter the number beside the action you would like to do (1-3): ")
-        if action == 1:
-            return "You have scolded Thanoose. Thanoose's health is now " + t_current_health - random.randint(1, 30)
-        elif action == 2:
-            return "You have yelled at Thanoose. Thanoose's health is now " + t_current_health - random.randint(20, 100)
-        elif action == 3:
-            return "You have hit Thanoose with a slipper. Thanoose's health is now " + t_current_health - random.randint(1, 250)
-        else:
-            return "You missed"
-    return action, player_superhero
+    if action == 1:
+            print("Since you are confronting Thanoose, choose your attack")
+            print("1 - Scold")
+            print("2 - Yell")
+            print("3 - Hit with slipper")
+            action = input("Enter the number beside the action you would like to do (1-3): ")
+            if action == 1:
+                print("You have scolded Thanoose. Thanoose's health is now " + thanoose_health() - random.randint(1, 30))
+            elif action == 2:
+                print("You have yelled at Thanoose. Thanoose's health is now " + thanoose_health() - random.randint(20, 100))
+            elif action == 3:
+                print("You have hit Thanoose with a slipper. Thanoose's health is now " + thanoose_health() - random.randint(1, 250))
+            else:
+                print("You missed")
+    if action == 2:
+            print("You have called for help! Choose the superhero to help you.")
+            print("1 - Hawkeye")
+            print("2 - Wanda")
+            print("3 - Dr. Strange")
+            action = input("Enter the number beside the hero you would like get help from (1-3): ")
+            if action == 1:
+                print("You and Hawkeye attack Thanoose. Thanoose's current damage is " + (thanoose_health - random.randint(50, 100)))
+            elif action == '2':
+                print("You and Wanda attack Thanoose. Thanoose's current damage is " + (thanoose_health - random.randint(50, 100)))
+            elif action == '3':
+                print("You and Dr. Strange attack Thanoose. Thanoose's current damage is " + (thanoose_health - random.randint(100, 190)))
+            else:
+                print("Invalid input. Your call for help wasn't recieved and Thanoose has attacked. Your current health is " + random.randint(1, 5))
+            return action, player_superhero
 
 # Thanoose's health
 def thanoose_health(t_current_health):
@@ -85,15 +96,18 @@ def thanoose_health(t_current_health):
     return t_current_health
 
 # The player's health
-def manage_health(current_health, damage_taken, initial_health):
-    initial_health = random.randint(100, 200)
+def manage_health(current_health, damage_taken):
     damage_taken = random.randint(10, 201)
-    current_health = initial_health - damage_taken
-    return current_health, damage_taken, initial_health
+    new_health = current_health - damage_taken
+    if new_health <= 0:
+        print("Game over! No more health.")
+    else:
+        print(f"Remaining health: {new_health}")
+    return new_health, damage_taken
 
 # Game completion function
 def game_completed():
-    return "Thanks for playing the Simple Python Adventure Game!"
+    print("Thanks for playing the Simple Python Adventure Game!")
 
 # Main function, excecutes everything
 def main():
@@ -103,25 +117,22 @@ def main():
     # Calls game intro
     game_intro(character, initial_health)
 
-    # Calls the decision
+    # Decision that is made
     decision = make_decision()
 
-    # Making the decision
-    choice(decision)
-
     # Superhero mission
+    action, player_superhero = superhero_mission(decision, character)
+
+    # Superhero Mission
     superhero_mission(action, player_superhero)
 
-    # Thanoose's health
-    t_current_health = thanoose_health(t_current_health)
-
     # Player's health
-    manage_health(current_health, initial_health)
+    manage_health(initial_health, damage_taken)
 
-    t_current_health = thanoose_health()
-    action, player_superhero = superhero_mission()
-    current_health, damage_taken = manage_health()
     character, initial_health = game_intro()
+    t_current_health = thanoose_health(t_current_health)
+    new_health, damage_taken = manage_health()
+    thanoose_health(t_current_health)
 
     # Game completion
     game_completed()
