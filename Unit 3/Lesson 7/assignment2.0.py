@@ -26,16 +26,15 @@ def character_choice():
         print("SpooderMan")
     else:
         print("Capsicule America")
-    
-    # Set initial health between 50 and 200
-    initial_health = random.randint(50, 200)
 
-    return character_choice, initial_health
+    return character_choice
+
+# Initial health
+initial_health = random.randint(50, 200)
 
 # This is the game introduction function
-def game_intro(character, initial_health):
-    print(f"You are the superhero of Canada, {character}! The supervillain Thanoose is coming to attack Canada the citizens of Canada have called for your help to defeat him! Your initial health is {initial_health}")
-    print(f"You must save the citizens of this Country!")
+def game_intro(superhero):
+    return "You are the superhero of Canada, " + superhero + "! The supervillain Thanoose is coming to attack Canada the citizens of Canada have called for your help to defeat him! Your initial health is " + str(initial_health) + ". You must save the citizens of this Country!"
 
 # This is the Decision
 # Attack or Seek help
@@ -54,11 +53,11 @@ def make_decision():
         print("3 - Hit with slipper")
         decision = input("Enter the number beside the action you would like to do (1-3): ")
         if decision == '1':
-            print("You have scolded Thanoose. Thanoose's health is now " + int(thanoose_health()) - random.randint(1, 30))
+            print("You have scolded Thanoose. Thanoose's health is now " + str(thanoose_health - random.randint(1, 30)))
         elif decision == '2':
-            print("You have yelled at Thanoose. Thanoose's health is now " + int(thanoose_health()) - random.randint(20, 100))
+            print("You have yelled at Thanoose. Thanoose's health is now " + str(thanoose_health - random.randint(20, 100)))
         elif decision == '3':
-            print("You have hit Thanoose with a slipper. Thanoose's health is now " + int(thanoose_health()) - random.randint(1, 250))
+            print("You have hit Thanoose with a slipper. Thanoose's health is now " + str(thanoose_health - random.randint(1, 250)))
         else:
             print("You missed")
     if decision == 2:
@@ -68,20 +67,31 @@ def make_decision():
         print("3 - Dr. Strange")
         decision = input("Enter the number beside the hero you would like get help from (1-3): ")
         if decision == 1:
-            print("You and Hawkeye attack Thanoose. Thanoose's current damage is " + (int(thanoose_health) - random.randint(50, 100)))
+            print("You and Hawkeye attack Thanoose. Thanoose's current damage is " + str(thanoose_health - random.randint(50, 100)))
         elif decision == '2':
-            print("You and Wanda attack Thanoose. Thanoose's current damage is " + (int(thanoose_health) - random.randint(50, 100)))
+            print("You and Wanda attack Thanoose. Thanoose's current damage is " + str(thanoose_health - random.randint(50, 100)))
         elif decision == '3':
-            print("You and Dr. Strange attack Thanoose. Thanoose's current damage is " + (int(thanoose_health) - random.randint(100, 190)))
+            print("You and Dr. Strange attack Thanoose. Thanoose's current damage is " + str(thanoose_health - random.randint(100, 190)))
         else:
             print("Invalid input. Your call for help wasn't recieved and Thanoose has attacked. Your current health is " + random.randint(1, 5))
+    return decision
 
 # Thanoose's health
 thanoose_health = random.randint(100, 250)
 
+# Damage
+def damage():
+    if make_decision == '1':
+        damage = random.randint(10, 150)
+    elif make_decision == '2':
+        damage = random.randint(10, 150)
+    else:
+        damage = random.randint(150, 200)
+
 # The player's health
 def manage_health(current_health, damage_taken):
-    damage_taken = random.randint(10, 201)
+    damage_taken = damage()
+    current_health = initial_health
     new_health = current_health - damage_taken
     if new_health <= 0:
         print("Game over! No more health.")
@@ -96,18 +106,19 @@ def game_completed():
 # Main function, excecutes everything
 def main():
     # Character choice separated
-    character, initial_health = character_choice()
+    character = character_choice()
 
     # Calls game intro
-    game_intro(character, initial_health)
+    game_intro(character)
 
     # decision
     make_decision()
 
     # Player's health
-    #manage_health(initial_health, damage_taken)
+    manage_health(initial_health, damage)
 
-    character, initial_health = game_intro()
+    decision = make_decision()
+
     t_current_health = thanoose_health(t_current_health)
     #new_health, damage_taken = manage_health()
     thanoose_health(t_current_health)
