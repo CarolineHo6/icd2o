@@ -7,24 +7,25 @@ cayenne = 40000
 thai = 75000
 habanero = 125000
 
+input = input("Enter the name of the pepper Ron has used: ")
+total_heat = 0
 
 for i in range(n):
     types = input("Enter the name of the pepper Ron has used: ")
-    if types == "poblano".lower:
-        i + 1
-    elif types == "mirasol".lower:
-        i + 1
-    elif types == "serrano".lower:
-        i + 1
-    elif types == "cayenne".lower:
-        i + 1
-    elif types == "thai".lower:
-        i + 1
-    elif types == "habanero".lower:
-        i + 1
+    if input == "poblano":
+        sum_of_chili = total_heat + poblano
+    elif input == "mirasol":
+        sum_of_chili = total_heat + mirasol
+    elif input == "serrano":
+        sum_of_chili = total_heat + serrano
+    elif input == "cayenne":
+        sum_of_chili = total_heat + cayenne
+    elif input == "thai":
+        sum_of_chili = total_heat + thai
+    elif input == "habanero":
+        sum_of_chili = total_heat + habanero
     else:
         break
 
-total = 0
-t = total + types
+total = total_heat
 
