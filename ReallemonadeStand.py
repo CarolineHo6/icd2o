@@ -6,24 +6,21 @@ def weather():
 
     # Number of customers depending on weather
     if weather == 1:
-        print("HOT AND SUNNY")
+        weather_of_day = "HOT AND SUNNY"
         customers = random.randint(20, 30)
     elif weather == 2:
-        print("SUNNY")
+        weather_of_day = "SUNNY"
         customers = random.randint(15, 20)
     elif weather == 3:
-        print("CLOUDY")
+        weather_of_day = "CLOUDY"
         customers = random.randint(10, 15)
     elif weather:
-        print("LIGHT RAIN")
+        weather_of_day = "LIGHT RAIN"
         customers = random.randint(7, 10)
     else:
-        print("THUNDERSTORMS")
+        weather_of_day = "THUNDERSTORMS"
         customers = random.randint(0, 3)
-    return weather, customers
-
-# Separating weather function stuff
-weather_of_day, customers = weather()
+    return weather_of_day, customers
 
 # no money
 def money_problems(num_advertisements_made, num_lemonade_made, initial_assets):
@@ -70,6 +67,8 @@ game_instructions()
 # Money you start off with
 initial_assets = 2
 profit = 0
+# Separating weather function stuff
+weather_of_day, customers = weather()
 
 # Day
 while go_or_stop.lower != "end":
@@ -85,29 +84,30 @@ while go_or_stop.lower != "end":
     while yes != True:
         lemonade = int(input("ENTER THE AMOUNT OF GLASSES OF LEMONADE YOU WANT TO MAKE: "))
         advertisement = int(input("ENTER THE AMOUNT OF ADVERTISEMENTS YOU WANT TO MAKE: "))
-        price()
+        # Separating price
+        price_ = price()
         num_customers = customers + customers * advertisement / 10
     
         # If no money
         if money_problems(advertisement, lemonade, initial_assets) == "YOU DON'T HAVE ENOUGH MONEY":
             print("YOU DON'T HAVE ENOUGH MONEY!")
         else:
-            yes == True
+            yes = True
 
     # If there aren't the same amount of customers and lemonades made
     if customers < lemonade:
-        profit = customers * price - advertisement * 0.15 - lemonade * 0.02
+        profit = customers * price_ - advertisement * 0.15 - lemonade * 0.02
     elif customers > lemonade:
-        profit = round((lemonade * price) - advertisement * 0.15 - lemonade * 0.02)
+        profit = round((lemonade * price_) - advertisement * 0.15 - lemonade * 0.02)
     
     # Assets
-    total = total + profit
+    total = initial_assets + profit
 
     # The daily money summary
     print("YOUR DAILY PROFIT SUMMARY")
     print("DAY: " + str(day_num))
-    print(f"PROFIT: {profit:.2}")
-    print(f"ASSETS: {total:.2}")
+    print(f"PROFIT (IN CENTS): {profit}")
+    print(f"ASSETS (IN CENTS): {total}")
     go_or_stop = input("TYPE 'yes' TO START: ")
 
     # Adding the number to the day
