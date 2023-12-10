@@ -87,6 +87,7 @@ def damage():
         damage = random.randint(10, 150)
     else:
         damage = random.randint(150, 200)
+    return damage
 
 # The player's health
 def manage_health(current_health, damage_taken):
@@ -116,12 +117,6 @@ def main():
 
     # Player's health
     manage_health(initial_health, damage)
-
-    decision = make_decision()
-
-    t_current_health = thanoose_health(t_current_health)
-    #new_health, damage_taken = manage_health()
-    thanoose_health(t_current_health)
 
     # Game completion
     game_completed()
