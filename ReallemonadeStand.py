@@ -114,5 +114,5 @@ while go_or_stop.lower != "end":
     day_num +=1
 
     # Adding the profit to the initial assets
-    initial_assets += profit
+    initial_assets = total
 
