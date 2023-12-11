@@ -6,7 +6,7 @@ def character_choice():
     print("Welcome to the Python Marvel Superhero Adventure!")
     print("Choose your superhero!")
     print("The superhero choices are:")
-    print("1 - Iron Deficient Man")
+    print("1 - Iron Deficiency Man")
     print("2 - SpooderMan")
     print("3 - Capsicule America")
     character_choice = input("Choose the number for the superhero of your choice (1-3): ")
@@ -14,14 +14,14 @@ def character_choice():
     # Character Validation
     while character_choice not in ['1', '2', '3']:
         print("Invalid Input. Choose the number beside the character:")
-        print("1. Iron Deficient Man")
+        print("1. Iron Deficiency Man")
         print("2. SpooderMan")
         print("3. Capsicule America")
         character_choice = input("Choose the number for the superhero of your choice (1-3): ")
 
     # Character name and health
     if character_choice == '1':
-        print("Iron Deficient Man")
+        print("Iron Deficiency Man")
     elif character_choice == '2':
         print("SpooderMan")
     else:
