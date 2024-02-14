@@ -23,9 +23,27 @@ def calculate_and_display_average(hits, runs, rbis):
     print(f"Average Runs: {sum(runs)/len(runs)}")
     print(f"Average rbis: {sum(rbis)/len(rbis)}")
 
+def stat_leader_hits(hits):
+    max_hits = max(hits)
+    for i in range(len(hits)):
+        if hits[i] == max_hits:
+            print(names[i])
+
+def stat_leader_rbis(rbis):
+    max_hits = max(rbis)
+    for i in range(len(rbis)):
+        if rbis[i] == max_hits:
+            print(names[i])
+
+def display_top_ten_in_category(category, hits, runs, rbis):
+    if category == "hit":
+        hits.sort()
+        
+
 if __name__ == "__main__":
     # Specify the file path
     file_path = "baseball_stats.txt"
+    print(file_path)
     # Read baseball data from the file
     names, hits, runs, rbis = read_baseball_data(file_path)
     # Display menu and handle user choices
@@ -44,6 +62,15 @@ if __name__ == "__main__":
             display_all_baseball_stats(names, hits, runs, rbis)
         elif choice =="2":
             calculate_and_display_average(hits, runs, rbis)
+        elif choice == "3":
+            stat_leader_hits(hits)
+        elif choice == "4":
+            stat_leader_rbis(rbis)
+        elif choice == "5":
+            category = input("Enter the category to display top 10 players: ")
+            display_top_ten_in_category(category, names, hits, runs, rbis)
+        elif choice == "6":
+            add_new_player(names, hits, runs, rbis)
         elif choice == "7":
             print("Exiting the program. Goodbye!")
             break
