@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r'C:\Users\CHo\AppData\Local\Programs\Python\Python312\Lib\site-packages')
 import pygame
 import random
 
