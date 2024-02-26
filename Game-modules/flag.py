@@ -5,6 +5,7 @@ import pygame
 pygame.init()
 
 screen = pygame.display.set_mode([400, 400])
+pygame.display.set_caption("Elephant Flag")
 
 WHITE = (0, 0, 0)
 BLACK = (255, 255, 255)
