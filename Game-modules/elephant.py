@@ -1,51 +1,34 @@
-import pygame
-import math
 import sys
 sys.path.append(r'C:\Users\CHo\AppData\Local\Programs\Python\Python312\Lib\site-packages')
+import pygame
 
-# Initialize Pygame
 pygame.init()
 
-# Set up the display
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Elephant")
+screen = pygame.display.set_mode([400, 400])
 
-# Define colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GRAY = (150, 150, 150)
+WHITE = (0, 0, 0)
+BLACK = (255, 255, 255)
+GREY = (150, 150, 150)
 
-# Define elephant parameters
-elephant_width = 200
-elephant_height = 100
+while True:
+    screen.fill(BLACK)
 
-# Main loop
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    # Elephant
+    pygame.draw.polygon(screen, (170, 170, 170), [(100, 50), (200, 55), (250, 80), (190, 150), (140, 150)])
+    pygame.draw.polygon(screen, (90, 90, 90), [(250, 80), (190, 150), (250, 150)])
+    pygame.draw.polygon(screen, (180, 180, 180), [(190, 150), (250, 150), (250, 165), (210, 170)])
+    pygame.draw.polygon(screen, (100, 100, 100), [(250, 80), (250 ,110), (275, 113)])
+    pygame.draw.polygon(screen, (195, 195, 195), [(90, 110), (93, 170), (110, 180), (200, 100), (90, 70)])
+    pygame.draw.polygon(screen, (79, 79, 79), [(90, 110), (167, 117), (167, 75), (158, 72)])
+    pygame.draw.polygon(screen, (190, 190, 190), [(90, 110), (158, 72), (95, 45)])
+    pygame.draw.polygon(screen, (135, 135, 135), [(32, 90), (28, 93), (31, 94), (34, 92)])
+    pygame.draw.polygon(screen, (205, 205, 205), [(50, 115), (60, 105), (37, 90), (32, 90)])
+    pygame.draw.polygon(screen, (50, 50, 50), [(95, 45), (90, 110), (50, 115), (70, 60)])
 
-    # Clear the screen
-    screen.fill(WHITE)
-
-    # Draw elephant body
-    pygame.draw.ellipse(screen, GRAY, [width/2 - elephant_width/2, height/2 - elephant_height/2, elephant_width, elephant_height])
-
-    # Draw elephant ears
-    pygame.draw.ellipse(screen, GRAY, [width/2 - elephant_width/2 - elephant_width/4, height/2 - elephant_height/2 - elephant_height/2, elephant_width/2, elephant_height])
-    pygame.draw.ellipse(screen, GRAY, [width/2 + elephant_width/2, height/2 - elephant_height/2 - elephant_height/2, elephant_width/2, elephant_height])
-
-    # Draw elephant eyes
-    pygame.draw.ellipse(screen, BLACK, [width/2 - elephant_width/4, height/2 - elephant_height/4, elephant_width/8, elephant_height/8])
-    pygame.draw.ellipse(screen, BLACK, [width/2 + elephant_width/8, height/2 - elephant_height/4, elephant_width/8, elephant_height/8])
-
-    # Draw elephant trunk
-    pygame.draw.rect(screen, GRAY, [width/2 + elephant_width/4, height/2, elephant_width/2, elephant_height/4])
-
-    # Update the display
     pygame.display.flip()
 
-# Quit Pygame
-pygame.quit()
+    for i in pygame.event.get():
+        if i.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
