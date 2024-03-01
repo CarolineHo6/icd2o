@@ -5,6 +5,7 @@ import pygame
 pygame.init()
 
 screen = pygame.display.set_mode([400, 400])
+pygame.display.set_caption("Elephant")
 
 WHITE = (0, 0, 0)
 BLACK = (255, 255, 255)
@@ -14,16 +15,28 @@ while True:
     screen.fill(BLACK)
 
     # Elephant 2.0
-    pygame.draw.lines(screen, (0,0,0), True, [(100, 50), (200, 55), (250, 80), (190, 150), (140, 150)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(250, 80), (190, 150), (250, 150)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(190, 150), (250, 150), (250, 165), (210, 170)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(250, 80), (250 ,110), (275, 113)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (93, 170), (110, 180), (200, 100), (90, 70)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (167, 117), (167, 75), (158, 72)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (158, 72), (95, 45)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(32, 90), (28, 93), (31, 94), (34, 92)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(50, 115), (60, 105), (37, 90), (32, 90)], 3)
-    pygame.draw.lines(screen, (0,0,0), True, [(95, 45), (90, 110), (50, 115), (70, 60)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(100, 50), (200, 55), (250, 80), (190, 150), (140, 150)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(250, 80), (190, 150), (250, 150)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(190, 150), (250, 150), (250, 165), (210, 170)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(250, 80), (250 ,110), (275, 113)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (93, 170), (110, 180), (200, 100), (90, 70)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (167, 117), (167, 75), (158, 72)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(90, 110), (158, 72), (95, 45)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(32, 90), (28, 93), (31, 94), (34, 92)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(50, 115), (60, 105), (37, 90), (32, 90)], 3)
+    #pygame.draw.lines(screen, (0,0,0), True, [(95, 45), (90, 110), (50, 115), (70, 60)], 3)
+
+    # Elephant aalines
+    pygame.draw.aalines(screen, (0,0,0), True, [(100, 50), (200, 55), (250, 80), (190, 150), (140, 150)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(250, 80), (190, 150), (250, 150)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(190, 150), (250, 150), (250, 165), (210, 170)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(250, 80), (250 ,110), (275, 113)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(90, 110), (93, 170), (110, 180), (200, 100), (90, 70)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(90, 110), (167, 117), (167, 75), (158, 72)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(90, 110), (158, 72), (95, 45)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(32, 90), (28, 93), (31, 94), (34, 92)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(50, 115), (60, 105), (37, 90), (32, 90)])
+    pygame.draw.aalines(screen, (0,0,0), True, [(95, 45), (90, 110), (50, 115), (70, 60)])
 
     # Elephant
     '''pygame.draw.polygon(screen, (170, 170, 170), [(100, 50), (200, 55), (250, 80), (190, 150), (140, 150)])
