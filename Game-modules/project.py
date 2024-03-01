@@ -69,6 +69,8 @@ while True:
     pygame.draw.line(screen, BLACK, (360, 595), (360, 615), 3)
     pygame.draw.lines(screen, BLACK, False, [(350, 625), (360, 615), (370, 625)])
     pygame.draw.lines(screen, BLACK, False, [(350, 595), (360, 605), (370, 595)])
+    pygame.draw.arc(screen, BLUE, pygame.Rect(350, 565, 20, 30), 0, math.pi, 30)
+    pygame.draw.line(screen, BLUE, (345, 580), (375, 580), 3)
 
     pygame.display.flip()
 
