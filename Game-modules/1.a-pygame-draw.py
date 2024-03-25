@@ -14,7 +14,7 @@ screen = pygame.display.set_mode([SCREEN_WIDTH, 720])
 # Run until the user asks to quit
 running = True
 x = 100
-x_vel = 1
+x_vel = 10
 box_width = 50
 radius = 30
 while running:
@@ -27,7 +27,7 @@ while running:
     # Fill the background with white
     screen.fill((255, 255, 255))
 
-    # pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(500, 100, 100, 50))
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(500, 100, 100, 50))
     # pygame.draw.circle(screen, (0, 255, 0), (300, 300), radius)
     # pygame.draw.line(screen, (0, 0, 255), (0, 0), (800, 600), 20)
     # pygame.draw.polygon(screen, (255, 255, 0), [(200, 200), (300, 300), (400, 200)])
