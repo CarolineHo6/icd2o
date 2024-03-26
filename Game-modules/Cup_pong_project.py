@@ -70,7 +70,7 @@ def intersects(rect:pygame.Rect, r: float, center: [float, float]):
 p1_pos = SCREEN_HEIGHT / 2 -  player_length / 2
 p2_pos = SCREEN_HEIGHT / 2 - player_length / 2
 
-while True:
+while p1_score < 8 or p2_score < 8:
     screen.fill(BLACK)
 
     for i in pygame.event.get():
