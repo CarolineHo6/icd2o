@@ -8,12 +8,13 @@ import random
 pygame.init()
 pygame.mixer.init()
 ouch = pygame.mixer.Sound('burp-1.wav')
+hit = pygame.mixer.Sound('beep.wav')
 
 #Screen
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Cup Pong")
+pygame.display.set_caption("Pong")
 
 # Colours
 WHITE = (255, 255, 255)
@@ -128,13 +129,16 @@ while p1_score < 8 or p2_score < 8:
         p1_score += 1
         ball_x = SCREEN_WIDTH//2
         ball_y = SCREEN_HEIGHT//2
+        pygame.mixer.Channel(2).play(hit)
     if ball_x < ball_radius:
         ball_vel_x = -ball_vel_x
         p2_score += 1
         ball_x = SCREEN_WIDTH//2
         ball_y = SCREEN_HEIGHT//2
+        pygame.mixer.Channel(2).play(hit)
     if ball_y > SCREEN_HEIGHT or ball_y < ball_radius + 100:
         ball_vel_y = -ball_vel_y
+        pygame.mixer.Channel(2).play(hit)
     
     # Draw players
     player1 = pygame.draw.rect(screen, WHITE, pygame.Rect(player1_x, player1_y, player_width, player_length)) #player 1
