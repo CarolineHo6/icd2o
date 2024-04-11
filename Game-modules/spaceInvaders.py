@@ -8,7 +8,7 @@ GREY = (29, 29, 27)
 GREEN = (0, 255, 17)
 
 # Screen
-SCREEN_WIDTH = 700
+SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 700
 SPACE = 50
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -190,7 +190,7 @@ class Game:
         for i in range(4):
             space_x = (i+1) * gap + i * barrier_width
             barrier = Barrier(space_x, self.screen_height - 100)
-            barriers.append(obstacle)
+            barriers.append(barrier)
         return barriers
     
     def create_aliens(self):
@@ -254,14 +254,14 @@ class Game:
                         pygame.mixer.Channel(2).play(explode)
             
         #Alien shots
-        if self.alien_bullets_group():
+        if self.alien_bullets_group:
             for bullet_sprite in self.alien_bullets_group:
                 if pygame.sprite.spritecollide(bullet_sprite, self.spaceship_group, False):
-                    pygame.mixer.Channel(1).play(explode)
                     bullet_sprite.kill()
+                    pygame.mixer.Channel(1).play(explode)
                     self.lives -= 1
                     if self.lives == 0:
-                        self.gameover()
+                        self.game_over()
 
                 for barrier in self.barriers:
                     if pygame.sprite.spritecollide(bullet_sprite, barrier.area_group, True):
@@ -351,7 +351,7 @@ while True:
     game.motherShip_group.draw(screen)
 
     #UI
-    pygame.draw.rect(screen, GREEN, ())
+    game.text()
 
     pygame.display.flip()
     clock.tick(60)
