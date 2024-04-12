@@ -339,18 +339,13 @@ class Game:
         if self.aliens_group == 0:
             self.create_aliens()
 
-    # Timer
-    def time(self):
-        timer = pygame.time.get_ticks()
-        self.clock = font.render(f"TIME: {timer}", True, GREEN)
-        screen.blit(self.clock, (SCREEN_WIDTH - 150, SCREEN_HEIGHT - 50))
+            
 
 # Game class
 game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, SPACE)
 
-# Time between each shot for aliens
 SHOOT_BULLET = pygame.USEREVENT
-pygame.time.set_timer(SHOOT_BULLET, 60000)
+pygame.time.set_timer(SHOOT_BULLET, 300)
 
 # Time between the mothership spawning
 MOTHERSHIP = pygame.USEREVENT + 1
@@ -364,9 +359,7 @@ while True:
             sys.exit()
         #delay the alien shot
         if event.type == SHOOT_BULLET and game.run:
-            pygame.time.delay(10000)
             game.alien_shoot()
-            pygame.time
         # Create the mothership
         if event.type == MOTHERSHIP and game.run:
             game.create_mother_ship()
@@ -380,13 +373,12 @@ while True:
     if game.run:
         game.spaceship_group.update()
         game.move_aliens()
-        game.alien_shoot()
+        game.alien_bullets_group.update()
         game.alien_bullets_group.update()
         game.motherShip_group.update()
         game.collision_check()
         game.text()
         game.reload_a()
-        game.time()
         
     # Screen filling
     screen.fill(GREY)
