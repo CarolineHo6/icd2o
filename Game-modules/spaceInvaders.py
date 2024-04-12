@@ -247,8 +247,8 @@ class Game:
     def alien_shoot(self):
         if self.aliens_group.sprites():
             random_alien = random.choice(self.aliens_group.sprites())
-            bullet_sprite = Bullet(random_alien.rect.center, -6, self.screen_height)
-            self.alien_bullets_group.add(bullet_sprite)
+            self.bullet_sprite = Bullet(random_alien.rect.center, -6, self.screen_height)
+            self.alien_bullets_group.add(self.bullet_sprite)
     
     def create_mother_ship(self):
         self.motherShip_group.add(Mother_Ship(self.screen_width, self.space))
@@ -264,7 +264,7 @@ class Game:
                         bullet_sprite.kill()
                         pygame.mixer.Channel(2).play(explode)
                 
-                if pygame.sprite.spritecollide(bullet_sprite, self.motherShip_group, True):
+                if pygame.sprite.spritecollide(self.bullet_sprite, self.motherShip_group, True):
                         self.score += 500
                         bullet_sprite.kill()
                         pygame.mixer.Channel(2).play(explode)
@@ -341,7 +341,10 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == SHOOT_BULLET and game.run:
+            pygame.time.delay(10000)
             game.alien_shoot()
+            pygame.time
+
         if event.type == MYSTERYSHIP and game.run:
             game.create_mother_ship()
             pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
