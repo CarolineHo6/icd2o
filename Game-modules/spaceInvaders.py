@@ -30,7 +30,7 @@ SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 700
 SPACE = 50
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Space invaders")
+pygame.display.set_caption("Impossible Space invaders")
 
 # Sounds
 pygame.mixer.init()
@@ -47,13 +47,13 @@ clock = pygame.time.Clock()
 class Alien(pygame.sprite.Sprite):
     def __init__(self, type, x, y):
         super().__init__()
-        self.type = type
-        path = f"alien{type}.png"
-        self.image = pygame.image.load(path)
-        self.rect = self.image.get_rect(topleft = (x, y))
+        self.type = type # Type of alien
+        path = f"alien{type}.png" # load the picture
+        self.image = pygame.image.load(path) # load it
+        self.rect = self.image.get_rect(topleft = (x, y)) #Put it somewhere
 
     def update(self, direction):
-        self.rect.x += direction
+        self.rect.x += direction #Direction it is going
 
 class Mother_Ship(pygame.sprite.Sprite):
     def __init__(self, screen_width, offset):
@@ -61,7 +61,7 @@ class Mother_Ship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.offset = offset
         self.image = pygame.image.load("MotherShip.png")
-        x = random.choice([self.offset/2, self.screen_width + self.offset - self.image.get_width()])
+        x = random.choice([self.offset/2, self.screen_width + self.offset - self.image.get_width()]) #where the x is
         if x == self.offset//2:
             self.speed = 3
         else:
@@ -71,7 +71,7 @@ class Mother_Ship(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speed
         if self.rect.right > self.screen_width + self.offset//2:
-            self.kill()
+            self.kill() #if they go past a certain point, the screen width, then destroy it
         elif self.rect.left < self.offset//2:
             self.kill()
 
@@ -81,16 +81,16 @@ class Bullet(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.Surface((1, 15))
         self.image.fill((YELLOW))
-        self.rect = self.image.get_rect(center = position)
+        self.rect = self.image.get_rect(center = position) # Create a bullet, it's just a line
         self.speed = speed
         self.screen_height = screen_height
 
     def update(self):
-        self.rect.y -= self.speed
+        self.rect.y -= self.speed #direction
         if self.rect.y > self.screen_height + 15 or self.rect.y < 0:
-            self.kill()
+            self.kill() # if bullet goes past a certain point kill() it
 
-# Barriers
+# Barrier's bounding box
 class Area(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -113,7 +113,6 @@ grid = [
 [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1],
 [1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1]
 ]
-
 #Obstacles
 class Barrier:
     def __init__(self, x, y):
@@ -126,7 +125,7 @@ class Barrier:
                     block = Area(p_x, p_y)
                     self.area_group.add(block)
 
-#Sprite Class
+#Spaceship class
 class Spaceship(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height, space):
         super().__init__()
@@ -142,6 +141,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.bullet_delay = 300
         shooting.play()
 
+    #clicks
     def get_user_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -157,25 +157,28 @@ class Spaceship(pygame.sprite.Sprite):
             shooting.play()
             
             
-    
+    #update the ship and restrict the movement and recharge the bullets
     def update(self):
         self.get_user_input()
         self.restrict_move()
         self.recharge_bullet()
         self.bullets_groups.update()
     
+    #Don't allow it to go past certain points (off screen on both sides)
     def restrict_move(self):
         if self.rect.height > self.screen_width:
             self.rect.right = self.screen_width
         if self.rect.left < self.space:
             self.rect.left = self.space
 
+    # Recharge the bullet so you can fire mulitple times
     def recharge_bullet(self):
         if not self.bullet_go:
             current_time = pygame.time.get_ticks()
             if current_time - self.bullet_time >= self.bullet_delay:
                 self.bullet_go = True
     
+    # if you die and want to restart this function resets the position
     def restart(self):
         self.rect = self.image.get_rect(midbottom = ((self.screen_width + self.space)/2, self.screen_height))
         self.bullets_groups.empty()
@@ -203,6 +206,7 @@ class Game:
         self.score = 0
         self.level = 1
 
+    #Create the barriers
     def create_barriers(self):
         barrier_width = len(grid[0]) * 3
         gap = (self.screen_width +self.space - (4*barrier_width))/5
@@ -214,6 +218,7 @@ class Game:
             barriers.append(barrier)
         return barriers
     
+    #Create the aliens
     def create_aliens(self):
         for row in range(5):
             for column in range(11):
@@ -228,6 +233,7 @@ class Game:
                 alien = Alien(alien_type, x + self.space/2, y)
                 self.aliens_group.add(alien)
     
+    #move the aliens
     def move_aliens(self):
         self.aliens_group.update(self.aliens_direction)
         alien_sprites = self.aliens_group.sprites()
@@ -239,20 +245,24 @@ class Game:
                 self.aliens_direction = 1
                 self.down_aliens(2)
 
+    #move the aliens down if they hit a wall
     def down_aliens(self, distance):
         if self.aliens_group:
             for alien in self.aliens_group.sprites():
                 alien.rect.y += distance
 
+    # allow aliens to shoot
     def alien_shoot(self):
         if self.aliens_group.sprites():
             random_alien = random.choice(self.aliens_group.sprites())
             self.bullet_sprite = Bullet(random_alien.rect.center, -6, self.screen_height)
             self.alien_bullets_group.add(self.bullet_sprite)
     
+    #create the mothership
     def create_mother_ship(self):
         self.motherShip_group.add(Mother_Ship(self.screen_width, self.space))
 
+    #check for collisions and if they do collide, delete the stuff that I want to be deleted in the game
     def collision_check(self):
         #ship
         if self.spaceship_group:
@@ -298,9 +308,12 @@ class Game:
             if pygame.sprite.spritecollide(alien, self.spaceship_group, False):
                 self.run = False
 
+    # Level that you get
     def levels(self):
-        self.level += self.score//1000
+        while self.run:
+            self.level += self.score//1000
 
+    # Text on the screen
     def text(self):
         self.level_surface = font.render(f"LEVEL {self.level}", True, GREEN)
         screen.blit(self.level_surface, (SCREEN_WIDTH  - 150, 10))
@@ -309,6 +322,7 @@ class Game:
         self.live = font.render(f"Lives {self.lives}", True, GREEN)
         screen.blit(self.live, (50, SCREEN_HEIGHT - 50))
 
+    # Restart the game if you die
     def restart(self):
         self.run = True
         self.lives = 3
@@ -320,19 +334,27 @@ class Game:
         self.barriers = self.create_barriers()
         self.score = 0
 
-    
+    # Reload aliens if you kill all of them
     def reload_a(self):
         if self.aliens_group == 0:
             self.create_aliens()
 
+    # Timer
+    def time(self):
+        timer = pygame.time.get_ticks()
+        self.clock = font.render(f"TIME: {timer}", True, GREEN)
+        screen.blit(self.clock, (SCREEN_WIDTH - 150, SCREEN_HEIGHT - 50))
+
 # Game class
 game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, SPACE)
 
+# Time between each shot for aliens
 SHOOT_BULLET = pygame.USEREVENT
 pygame.time.set_timer(SHOOT_BULLET, 60000)
 
-MYSTERYSHIP = pygame.USEREVENT + 1
-pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
+# Time between the mothership spawning
+MOTHERSHIP = pygame.USEREVENT + 1
+pygame.time.set_timer(MOTHERSHIP, random.randint(4000, 8000))
 
 while True:
     # Shutting it down if you exit
@@ -340,15 +362,16 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        #delay the alien shot
         if event.type == SHOOT_BULLET and game.run:
             pygame.time.delay(10000)
             game.alien_shoot()
             pygame.time
-
-        if event.type == MYSTERYSHIP and game.run:
+        # Create the mothership
+        if event.type == MOTHERSHIP and game.run:
             game.create_mother_ship()
-            pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
-
+            pygame.time.set_timer(MOTHERSHIP, random.randint(4000, 8000))
+        #If you get killed then you can reset if you press space
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and game.run == False:
             game.restart()
@@ -363,6 +386,7 @@ while True:
         game.collision_check()
         game.text()
         game.reload_a()
+        game.time()
         
     # Screen filling
     screen.fill(GREY)
