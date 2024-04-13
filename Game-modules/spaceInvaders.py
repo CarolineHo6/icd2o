@@ -14,6 +14,7 @@
 #Then in the main loop I created the if the window was closed shut it down, if the shoot bullet for aliens event was true and game running was true shoot the bullet and if mothership event wss true an game running was true then create a mothership.
 # I also created a thing where if the game running was false and you pressed space it would restart the game.
 # then i added all the updating for each class and then the printing onto the screen for each sprite and text. Then there is a setting for the frames per second.
+#My three special features is the change in colour of bullets and the spaceship into yellow and the mothership into red. I also added lines onto the side of the screen to make it seem like an arcade game and I added a restart function that allows you to restart the game if you die by pressing the space button. Finally, I subtracted a line of aliens from the rows make things easier and upped the amount of points you get for each.
 
 import random
 import sys
@@ -56,13 +57,13 @@ class Alien(pygame.sprite.Sprite):
         self.rect.x += direction #Direction it is going
 
 class Mother_Ship(pygame.sprite.Sprite):
-    def __init__(self, screen_width, offset):
+    def __init__(self, screen_width, space):
         super().__init__()
         self.screen_width = screen_width
-        self.offset = offset
+        self.space = space
         self.image = pygame.image.load("MotherShip.png")
-        x = random.choice([self.offset/2, self.screen_width + self.offset - self.image.get_width()]) #where the x is
-        if x == self.offset//2:
+        x = random.choice([self.space/2, self.screen_width + self.space - self.image.get_width()]) #where the x is
+        if x == self.space//2:
             self.speed = 3
         else:
             self.speed = -3
@@ -70,9 +71,9 @@ class Mother_Ship(pygame.sprite.Sprite):
     
     def update(self):
         self.rect.x += self.speed
-        if self.rect.right > self.screen_width + self.offset//2:
+        if self.rect.right > self.screen_width + self.space/2:
             self.kill() #if they go past a certain point, the screen width, then destroy it
-        elif self.rect.left < self.offset//2:
+        elif self.rect.left < self.space/2:
             self.kill()
 
 # Bullets
@@ -339,13 +340,16 @@ class Game:
         if self.aliens_group == 0:
             self.create_aliens()
 
+    def outline(self):
+        pygame.draw.line(screen, GREEN, (20, 0), (20, SCREEN_HEIGHT), 5)
+        pygame.draw.line(screen, GREEN, (SCREEN_WIDTH - 20, 0), (SCREEN_WIDTH - 20, SCREEN_HEIGHT), 5)
             
 
 # Game class
 game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, SPACE)
 
 SHOOT_BULLET = pygame.USEREVENT
-pygame.time.set_timer(SHOOT_BULLET, 300)
+pygame.time.set_timer(SHOOT_BULLET, 500)
 
 # Time between the mothership spawning
 MOTHERSHIP = pygame.USEREVENT + 1
@@ -364,11 +368,22 @@ while True:
         if event.type == MOTHERSHIP and game.run:
             game.create_mother_ship()
             pygame.time.set_timer(MOTHERSHIP, random.randint(4000, 8000))
+        if game.lives == 0 and game.run == False:
+            # Restart text
+            game_over_screen = font.render(f"GAME OVER", True, GREEN)
+            game_over_rect = game_over_screen.get_rect()
+            game_over_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            screen.blit(game_over_screen, game_over_rect)
+            choice = font.render("PRESS SPACE TO RESTART", True, GREEN)
+            choice_rect = choice.get_rect()
+            choice_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            screen.blit(choice, choice_rect)
         #If you get killed then you can reset if you press space
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and game.run == False:
             game.restart()
-    
+
+
     #Updating
     if game.run:
         game.spaceship_group.update()
@@ -389,6 +404,7 @@ while True:
     game.aliens_group.draw(screen)
     game.alien_bullets_group.draw(screen)
     game.motherShip_group.draw(screen)
+    game.outline()
 
     #text
     game.text()
