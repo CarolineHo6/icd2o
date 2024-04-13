@@ -4,17 +4,17 @@
 # I then created a bullet class which creates the bulket the same way as the aliens and mother ship and the had it update to where it goes (up) and the if it exits the screen it will be taken out using the kill() function
 # Then I created a Bounding box class for the barriers in space invaders which filled in that area with green.
 # I then made a 2D array which had 0 and 1s. where the ones were in the 2D array showed where there should be a block coloured in with green.
-#I then created a barrier class which interates through each row to see if it shoild print a square or not and then checks which array it is in to see which column it is in.
+# I then created a barrier class which interates through each row to see if it shoild print a square or not and then checks which array it is in to see which column it is in.
 # Then I created a spaceship class which creates the main ship, controls it, allows it to shoot and move, restricts the movement so ut doesn't go off the screen, recharges the bullets by adding bullets to the group with a delay and restarting the position if it gets killed.
 # I created a game class which had all the classes uses inside of it to make the code look cleaner. It had a definition that defined all the variables, a create barriers definition,create aliens, move aliens, move the aliens down, allow the aliens to shoot, creating the mother shop, a collision definition, text, restart and game over definition.
 # The collisoon definition check if the main ship's bullets collided with an alien, barrier or mother ship, and when it did it deleted the sprite it collided with and the bullet and added the certain amount of points it needed. Then it check if the alien bullet colided with the space ship or barrier and if it colided with the spaceship the spaceship lost a life. If the aliens colided with a barrier it would delete it until it got to the spaceship which it automatically triggered game over.
 # In the levels definition it just divided the points by 1000 and rounded down. In the text definition it just put up the level and score of the player and the lives.
 # The restart definition resets all of the positions of everything on the screen and recreates them. the reload_a definition that reloads all of the aliens on the screen if there are no more.
 # I created a variable for the game class and then put a timer for the seconds for the alien shooting and mother ship appearing.
-#Then in the main loop I created the if the window was closed shut it down, if the shoot bullet for aliens event was true and game running was true shoot the bullet and if mothership event wss true an game running was true then create a mothership.
+# Then in the main loop I created the if the window was closed shut it down, if the shoot bullet for aliens event was true and game running was true shoot the bullet and if mothership event wss true an game running was true then create a mothership.
 # I also created a thing where if the game running was false and you pressed space it would restart the game.
-# then i added all the updating for each class and then the printing onto the screen for each sprite and text. Then there is a setting for the frames per second.
-#My three special features is the change in colour of bullets and the spaceship into yellow and the mothership into red. I also added lines onto the side of the screen to make it seem like an arcade game and I added a restart function that allows you to restart the game if you die by pressing the space button. Finally, I subtracted a line of aliens from the rows make things easier and upped the amount of points you get for each.
+# Then i added all the updating for each class and then the printing onto the screen for each sprite and text. Then there is a setting for the frames per second.
+# My three special features is the change in colour of bullets and the spaceship into yellow and the mothership into red. I also added lines onto the side of the screen to make it seem like an arcade game and I added a restart function that allows you to restart the game if you die by pressing the space button. Finally, I subtracted a line of aliens from the rows make things easier and upped the amount of points you get for each.
 
 import random
 import sys
