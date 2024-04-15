@@ -55,7 +55,7 @@ class Alien(pygame.sprite.Sprite):
 
     def update(self, direction):
         self.rect.x += direction #Direction it is going
-
+# Mothership
 class Mother_Ship(pygame.sprite.Sprite):
     def __init__(self, screen_width, space):
         super().__init__()
@@ -167,8 +167,8 @@ class Spaceship(pygame.sprite.Sprite):
     
     #Don't allow it to go past certain points (off screen on both sides)
     def restrict_move(self):
-        if self.rect.height > self.screen_width:
-            self.rect.right = self.screen_width
+        if self.rect.right > self.screen_width - self.space:
+            self.rect.right = self.screen_width  - self.space
         if self.rect.left < self.space:
             self.rect.left = self.space
 
@@ -276,8 +276,8 @@ class Game:
                         pygame.mixer.Channel(2).play(explode)
                 
                 if pygame.sprite.spritecollide(self.bullet_sprite, self.motherShip_group, True):
-                        self.score += 500
                         bullet_sprite.kill()
+                        self.score += 500
                         pygame.mixer.Channel(2).play(explode)
                 
                 for barrier in self.barriers:
@@ -337,7 +337,7 @@ class Game:
 
     # Reload aliens if you kill all of them
     def reload_a(self):
-        if self.aliens_group == 0:
+        if self.aliens_group == None:
             self.create_aliens()
 
     def outline(self):
