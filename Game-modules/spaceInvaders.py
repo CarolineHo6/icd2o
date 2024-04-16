@@ -14,7 +14,8 @@
 # Then in the main loop I created the if the window was closed shut it down, if the shoot bullet for aliens event was true and game running was true shoot the bullet and if mothership event wss true an game running was true then create a mothership.
 # I also created a thing where if the game running was false and you pressed space it would restart the game.
 # Then i added all the updating for each class and then the printing onto the screen for each sprite and text. Then there is a setting for the frames per second.
-# My three special features is the change in colour of bullets and the spaceship into yellow and the mothership into red. I also added lines onto the side of the screen to make it seem like an arcade game and I added a restart function that allows you to restart the game if you die by pressing the space button. Finally, I subtracted a line of aliens from the rows make things easier and upped the amount of points you get for each.
+# Some cool features is the change in colour of bullets and the spaceship into yellow and the mothership into red. I also added lines onto the side of the screen to make it seem like an arcade game and I added a restart function that allows you to restart the game if you die by pressing the space button. I subtracted a line of aliens from the rows make things easier and upped the amount of points you get for each. I also added background music that stops if you die.
+# Change shot colour. Game over sound. make keys left handed and right handed
 
 import random
 import sys
@@ -35,8 +36,10 @@ pygame.display.set_caption("Impossible Space invaders")
 
 # Sounds
 pygame.mixer.init()
-explode = pygame.mixer.Sound('explosion.wav')
+explode = pygame.mixer.Sound('explosion.mp3')
 shooting = pygame.mixer.Sound('fire.wav')
+music = pygame.mixer.music.load('music.mp3')
+gameover = pygame.mixer.Sound('gameover.wav')
 
 #Texts
 font = pygame.font.Font(None, 40)
@@ -76,12 +79,27 @@ class Mother_Ship(pygame.sprite.Sprite):
         elif self.rect.left < self.space/2:
             self.kill()
 
-# Bullets
+# Bullets for spaceship
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, position, speed, screen_height):
         super().__init__()
         self.image = pygame.Surface((1, 15))
         self.image.fill((YELLOW))
+        self.rect = self.image.get_rect(center = position) # Create a bullet, it's just a line
+        self.speed = speed
+        self.screen_height = screen_height
+
+    def update(self):
+        self.rect.y -= self.speed #direction
+        if self.rect.y > self.screen_height + 15 or self.rect.y < 0:
+            self.kill() # if bullet goes past a certain point kill() it
+
+# Bullets for aliens
+class Bullets(pygame.sprite.Sprite):
+    def __init__(self, position, speed, screen_height):
+        super().__init__()
+        self.image = pygame.Surface((1, 15))
+        self.image.fill((GREEN))
         self.rect = self.image.get_rect(center = position) # Create a bullet, it's just a line
         self.speed = speed
         self.screen_height = screen_height
@@ -145,9 +163,9 @@ class Spaceship(pygame.sprite.Sprite):
     #clicks
     def get_user_input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.rect.x += self.speed
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.rect.x -= self.speed
         if keys[pygame.K_SPACE] and self.bullet_go:
             pygame.mixer.Channel(1).play(shooting)
@@ -256,7 +274,7 @@ class Game:
     def alien_shoot(self):
         if self.aliens_group.sprites():
             random_alien = random.choice(self.aliens_group.sprites())
-            self.bullet_sprite = Bullet(random_alien.rect.center, -6, self.screen_height)
+            self.bullet_sprite = Bullets(random_alien.rect.center, -4, self.screen_height)
             self.alien_bullets_group.add(self.bullet_sprite)
     
     #create the mothership
@@ -355,6 +373,10 @@ pygame.time.set_timer(SHOOT_BULLET, 500)
 MOTHERSHIP = pygame.USEREVENT + 1
 pygame.time.set_timer(MOTHERSHIP, random.randint(4000, 8000))
 
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(1)
+play = True
+
 while True:
     # Shutting it down if you exit
     for event in pygame.event.get():
@@ -383,7 +405,11 @@ while True:
         if keys[pygame.K_SPACE] and game.run == False:
             game.restart()
 
-
+        if game.run == False:
+            pygame.mixer.music.pause()
+        if game.lives == 0 and play:
+            pygame.mixer.Channel(3).play(gameover)
+            play = False
     #Updating
     if game.run:
         game.spaceship_group.update()
